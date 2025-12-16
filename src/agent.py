@@ -1,5 +1,6 @@
 import json
 import chess
+import base64
 from a2a.server.tasks import TaskUpdater
 from a2a.types import TaskState, Part, TextPart, DataPart
 from a2a.utils import new_agent_text_message
@@ -45,10 +46,12 @@ class Agent:
                 move = chess.Move.from_uci(move_uci)
                 if move in board.legal_moves:
                     board.push(move)
+                    # encode board fen as base64
+                    encoded_fen = base64.b64encode(board.fen().encode()).decode()
                     await updater.update_status(
                         TaskState.working,
                         new_agent_text_message(
-                            f"{next} played move: {move_uci}. Current board FEN: {board.fen()}"
+                            f"{next} played move: {move_uci}. Current board FEN: {board.fen()} View via: https://fen-viewer.puppy9.com/?fen={encoded_fen}"
                         ),
                     )
                 else:
