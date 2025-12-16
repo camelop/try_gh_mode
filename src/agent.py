@@ -79,7 +79,7 @@ class Agent:
         await updater.add_artifact(
             parts=[
                 Part(root=TextPart(text="Game Over")),
-                Part(root=DataPart(data=json.dumps(result))),
+                Part(root=DataPart(data=result)),
             ],
             name="Result",
         )
