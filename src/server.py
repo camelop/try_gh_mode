@@ -15,31 +15,48 @@ from executor import Executor
 
 def main():
     parser = argparse.ArgumentParser(description="Run the A2A agent.")
-    parser.add_argument("--host", type=str, default="127.0.0.1", help="Host to bind the server")
-    parser.add_argument("--port", type=int, default=9009, help="Port to bind the server")
-    parser.add_argument("--card-url", type=str, help="URL to advertise in the agent card")
+    parser.add_argument(
+        "--host", type=str, default="127.0.0.1", help="Host to bind the server"
+    )
+    parser.add_argument(
+        "--port", type=int, default=9009, help="Port to bind the server"
+    )
+    parser.add_argument(
+        "--card-url", type=str, help="URL to advertise in the agent card"
+    )
     args = parser.parse_args()
 
     # Fill in your agent card
     # See: https://a2a-protocol.org/latest/tutorials/python/3-agent-skills-and-card/
-    
+
     skill = AgentSkill(
-        id="",
-        name="",
-        description="",
-        tags=[""],
-        examples=[""]
+        id="moderate_and_judge_chess_game",
+        name="Moderate and Judge Chess Game",
+        description="Skill to moderate and judge chess games",
+        tags=["chess", "moderation", "judging"],
+        examples=[
+            """
+{
+  "participants": {
+    "player_w": "https://example.com/agents/player_w",
+    "player_b": "https://example.com/agents/player_b"
+  },
+  "config": {
+  }
+}
+"""
+        ],
     )
 
     agent_card = AgentCard(
-        name="",
-        description="",
+        name="chess_game_moderator",
+        description="An agent that moderates and judges chess games between two players.",
         url=args.card_url or f"http://{args.host}:{args.port}/",
-        version='1.0.0',
-        default_input_modes=['text'],
-        default_output_modes=['text'],
+        version="1.0.0",
+        default_input_modes=["text"],
+        default_output_modes=["text"],
         capabilities=AgentCapabilities(streaming=True),
-        skills=[skill]
+        skills=[skill],
     )
 
     request_handler = DefaultRequestHandler(
@@ -53,5 +70,5 @@ def main():
     uvicorn.run(server.build(), host=args.host, port=args.port)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

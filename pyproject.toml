@@ -1,10 +1,11 @@
 [project]
-name = "agent-template"
+name = "agent-example-with-chess-game"
 version = "0.1.0"
-description = "A template for A2A agents"
+description = "Agentified agents for chess game eval"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "a2a-sdk[http-server]>=0.3.20",
+    "python-chess>=1.999",
     "uvicorn>=0.38.0",
 ]

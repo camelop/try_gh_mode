@@ -1,3 +1,11 @@
+# agent-example-with-chess-game
+
+Example of impl green/white for a chess game env
+
+** CONTENT BELOW TO BE DELETED SOON. **
+
+---
+
 # A2A Agent Template
 
 A minimal template for building [A2A (Agent-to-Agent)](https://a2a-protocol.org/latest/) agents.
