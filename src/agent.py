@@ -37,7 +37,7 @@ class Agent:
         while True:
             target_url = participants[next]
             response = await self.messenger.talk_to_agent(
-                f"Your turn to play. Current board state (FEN): {board.fen()}. Please provide your move in UCI format. Only provide the move string.",
+                f"Your turn to play. Current board state (FEN): {board.fen()}. Output exactly one valid UCI move only; any extra characters or SAN symbols will cause immediate loss.",
                 target_url,
             )
             move_uci = response.strip()
