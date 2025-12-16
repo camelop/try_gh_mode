@@ -52,17 +52,18 @@ class Agent:
                         ),
                     )
                 else:
-                    raise Exception("Illegal move")
+                    raise Exception("Not in legal moves")
             except Exception as e:
-                print("Error processing move:", e)
+                print("Error processing move:", str(e))
                 import traceback
 
-                traceback.print_stack()
+                traceback.print_exc()
                 # invalid move format, opponent wins
                 winner = "player_b" if next == "player_w" else "player_w"
                 result = {
                     "reason": "invalid_move_format",
                     "invalid_move": move_uci,
+                    "invalid_explanation": str(e),
                     "fen": board.fen(),
                     "winner": winner,
                 }
