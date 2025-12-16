@@ -2,6 +2,8 @@ import json
 import chess
 from a2a.server.tasks import TaskUpdater
 from a2a.types import TaskState, Part, TextPart, DataPart
+from a2a.utils import new_agent_text_message
+
 from messenger import Messenger
 
 
@@ -45,16 +47,21 @@ class Agent:
                     board.push(move)
                     await updater.update_status(
                         TaskState.IN_PROGRESS,
-                        f"{next} played move: {move_uci}. Current board FEN: {board.fen()}",
+                        new_agent_text_message(
+                            f"{next} played move: {move_uci}. Current board FEN: {board.fen()}"
+                        ),
                     )
                 else:
+                    import traceback
+
+                    traceback.print_stack()
                     raise Exception("Illegal move")
             except Exception:
                 # invalid move format, opponent wins
                 winner = "player_b" if next == "player_w" else "player_w"
                 result = {
                     "reason": "invalid_move_format",
-                    "invalid_move_by": next,
+                    "invalid_move": move_uci,
                     "fen": board.fen(),
                     "winner": winner,
                 }
