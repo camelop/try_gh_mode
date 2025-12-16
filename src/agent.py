@@ -52,11 +52,12 @@ class Agent:
                         ),
                     )
                 else:
-                    import traceback
-
-                    traceback.print_stack()
                     raise Exception("Illegal move")
-            except Exception:
+            except Exception as e:
+                print("Error processing move:", e)
+                import traceback
+
+                traceback.print_stack()
                 # invalid move format, opponent wins
                 winner = "player_b" if next == "player_w" else "player_w"
                 result = {
