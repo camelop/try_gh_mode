@@ -46,7 +46,7 @@ class Agent:
                 if move in board.legal_moves:
                     board.push(move)
                     await updater.update_status(
-                        TaskState.IN_PROGRESS,
+                        TaskState.working,
                         new_agent_text_message(
                             f"{next} played move: {move_uci}. Current board FEN: {board.fen()}"
                         ),
